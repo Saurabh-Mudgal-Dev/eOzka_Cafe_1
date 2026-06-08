@@ -25,19 +25,35 @@
 }
 
 [data-theme="light"] {
-  --bg-dark: #fbf9f6;
+  --bg-dark: #fbfaf7;
   --bg-card: #ffffff;
   --bg-card-glass: rgba(255, 255, 255, 0.85);
-  --accent: #9a763e;
-  --accent-hover: #7b5828;
-  --accent-glow: rgba(154, 118, 62, 0.2);
-  --text-main: #24201c;
-  --text-muted: #6e6459;
-  --border: rgba(154, 118, 62, 0.3);
-  --border-light: rgba(0, 0, 0, 0.08);
-  --bg-snippet: #f5f0e8;
-  --bg-footer: #e8e2d7;
+  
+  --accent: #a37f43;
+  --accent-hover: #846432;
+  --accent-glow: rgba(163, 127, 67, 0.15);
+  
+  --text-main: #2c2520;
+  --text-muted: #70655b;
+  
+  --border: rgba(163, 127, 67, 0.25);
+  --border-light: rgba(44, 37, 32, 0.08);
+  
+  --bg-snippet: #f4eee3;
+  --bg-footer: #eae1d0;
   --input-bg: #ffffff;
+}
+
+[data-theme="light"] .hero {
+  background-image: linear-gradient(
+                      color-mix(in srgb, var(--bg-dark) 60%, transparent), 
+                      color-mix(in srgb, var(--bg-dark) 85%, transparent)
+                    ), 
+                    url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=2000') !important;
+}
+
+[data-theme="light"] iframe[title="map"] {
+  filter: invert(0%) hue-rotate(0deg) grayscale(10%) !important;
 }
 
 /* Reset */
@@ -112,16 +128,26 @@ a {
 
 .btn-primary {
   background-color: var(--accent);
-  color: #12100e;
+  color: var(--bg-dark);
 }
 
 .btn-primary:hover {
   background-color: var(--accent-hover);
   box-shadow: 0 0 15px var(--accent-glow);
   transform: translateY(-2px);
+  color: var(--bg-dark);
 }
 
 .btn-secondary {
+  display: inline-block;
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: var(--transition);
   background-color: transparent;
   color: var(--accent);
   border: 1px solid var(--accent);
@@ -129,7 +155,7 @@ a {
 
 .btn-secondary:hover {
   background-color: var(--accent);
-  color: #12100e;
+  color: var(--bg-dark);
   transform: translateY(-2px);
 }
 
@@ -140,7 +166,7 @@ a {
   left: 0;
   width: 100%;
   z-index: 100;
-  background-color: rgba(18, 16, 14, 0.85);
+  background-color: var(--bg-card-glass);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border-light);
   transition: var(--transition);
@@ -221,7 +247,7 @@ a {
   display: flex;
   align-items: center;
   position: relative;
-  background: linear-gradient(rgba(18, 16, 14, 0.6), rgba(18, 16, 14, 0.9)), 
+  background: linear-gradient(var(--bg-card-glass), var(--bg-dark)), 
               url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=2000') no-repeat center center/cover;
   padding-top: 80px;
 }
@@ -262,6 +288,28 @@ a {
 .about-snippet {
   padding: 100px 0;
   background-color: var(--bg-snippet);
+}
+
+.about-snippet .booking-form-box {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-light);
+  transition: var(--transition);
+}
+
+.about-snippet .booking-form-box:hover {
+  transform: translateY(-8px);
+  border-color: var(--accent);
+  box-shadow: 0 10px 25px var(--accent-glow);
+}
+
+.about-snippet .booking-form-box div[style*="background-color: var(--accent)"] {
+  transition: var(--transition);
+  color: var(--bg-dark) !important; 
+}
+
+.about-snippet .booking-form-box:hover div[style*="background-color: var(--accent)"] {
+  background-color: var(--accent-hover) !important;
+  box-shadow: 0 0 10px var(--accent-glow);
 }
 
 .about-grid {
@@ -846,6 +894,15 @@ a {
   display: flex;
   gap: 20px;
   align-items: center;
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+              box-shadow 0.3s ease,
+              border-color 0.3s ease;
+}
+
+.contact-info-item:hover {
+  transform: translateX(5px);
+  border-color: var(--accent);
+  box-shadow: -4px 6px 20px var(--accent-glow);
 }
 
 .contact-info-icon-wrapper {
@@ -870,6 +927,11 @@ a {
 .contact-info-text {
   color: var(--text-muted);
   font-size: 0.9rem;
+}
+
+iframe[title="map"]{
+  transition: filter 0.4s ease;
+  filter: invert(90%) hue-rotate(180deg) grayscale(30%) !important;
 }
 
 /* Toast alert */
@@ -1036,6 +1098,18 @@ a {
     grid-template-columns: 1fr;
     gap: 30px;
   }
+
+  .contact-grid .booking-form-box {
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+              box-shadow 0.3s ease,
+              border-color 0.3s ease;
+}
+
+.contact-grid .booking-form-box:hover {
+  transform: translateY(-4px);
+  border-color: var(--border);
+  box-shadow: 0 12px 30px var(--accent-glow);
+}
   
   .form-group-row {
     grid-template-columns: 1fr;

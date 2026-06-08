@@ -20,7 +20,7 @@
   --font-heading: 'Playfair Display', Georgia, serif;
   --font-body: 'Montserrat', sans-serif;
   
-  --transition: all 0.3s ease;
+  --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   --radius: 12px;
 }
 
@@ -453,8 +453,8 @@ a {
 .menu-tabs {
   display: flex;
   justify-content: center;
-  gap: 12px;
-  margin-bottom: 48px;
+  gap: 14px;
+  margin-bottom: 56px;
   flex-wrap: wrap;
 }
 
@@ -462,10 +462,12 @@ a {
   background-color: transparent;
   color: var(--text-muted);
   border: 1px solid var(--border-light);
-  padding: 10px 24px;
-  border-radius: 20px;
+  padding: 10px 26px;
+  border-radius: 24px;
   cursor: pointer;
   font-weight: 500;
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
   transition: var(--transition);
   font-family: var(--font-body);
 }
@@ -474,61 +476,94 @@ a {
   background-color: var(--accent);
   color: #12100e;
   border-color: var(--accent);
+  box-shadow: 0 4px 20px var(--accent-glow);
 }
 
 .menu-items-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 30px;
+  gap: 32px;
 }
 
-.menu-item-row {
+.menu-item-card {
   display: flex;
-  justify-content: space-between;
+  align-items: stretch;
   background-color: var(--bg-card);
-  padding: 20px;
   border-radius: var(--radius);
   border: 1px solid var(--border-light);
+  padding: 16px;
+  gap: 24px;
+  transition: var(--transition);
+  position: relative;
+}
+
+.menu-item-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+.menu-item-image-wrapper {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  min-width: 110px;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: var(--bg-snippet);
+  border: 1px solid var(--border-light);
+}
+
+.menu-item-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
   transition: var(--transition);
 }
 
-.menu-item-row:hover {
-  border-color: var(--border);
-  transform: translateY(-2px);
+.menu-item-card:hover .menu-item-img {
+  transform: scale(1.08);
 }
 
 .menu-item-details {
   flex: 1;
-  padding-right: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .menu-item-title-price {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  margin-bottom: 8px;
+  gap: 12px;
+  margin-bottom: 6px;
 }
 
 .menu-item-name {
   font-family: var(--font-heading);
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 600;
+  color: var(--text-main);
+  transition: var(--transition);
 }
 
-.menu-item-dots {
-  flex-grow: 1;
-  border-bottom: 1px dotted var(--border);
-  margin: 0 10px;
+.menu-item-card:hover .menu-item-name {
+  color: var(--accent-hover);
 }
 
 .menu-item-price {
   color: var(--accent);
   font-weight: 700;
+  font-size: 1.1rem;
+  font-family: var(--font-body);
 }
 
 .menu-item-desc {
   color: var(--text-muted);
-  font-size: 0.85rem;
+  font-size: 0.88rem;
+  line-height: 1.5;
 }
 
 /* Booking / Appointment Page */
@@ -1156,5 +1191,26 @@ iframe[title="map"]{
   .theme-toggle-btn {
     margin-left: auto;
     margin-right: 16px;
+  }
+}
+
+@media (max-width: 992px) {
+  .menu-items-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-item-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+  }
+  
+  .menu-item-image-wrapper {
+    width: 100%;
+    height: 180px;
   }
 }

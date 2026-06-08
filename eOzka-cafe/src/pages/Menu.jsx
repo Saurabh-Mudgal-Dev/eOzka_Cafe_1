@@ -24,14 +24,21 @@ const Menu = () => {
         ))}
       </div>
 
-      {/* Menu Items Grid */}
+      {/* Modern Card-Based Menu Items Grid */}
       <div className="menu-items-grid">
         {MENU_DATA[activeMenuTab].map((item, index) => (
-          <div key={index} className="menu-item-row">
+          <div key={index} className="menu-item-card">
+            <div className="menu-item-image-wrapper">
+              <img 
+                src={item.image} 
+                alt={item.name} 
+                className="menu-item-img"
+                loading="lazy"
+              />
+            </div>
             <div className="menu-item-details">
               <div className="menu-item-title-price">
                 <span className="menu-item-name">{item.name}</span>
-                <span className="menu-item-dots"></span>
                 <span className="menu-item-price">{item.price}</span>
               </div>
               <p className="menu-item-desc">{item.desc}</p>

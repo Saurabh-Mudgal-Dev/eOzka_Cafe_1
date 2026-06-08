@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
@@ -10,6 +10,10 @@ import Contact from './pages/Contact'
 const App = () => {
   const [activeTab, setActiveTab] = useState('home')
   
+  // Custom Cursor DOM References
+  const dotRef = useRef(null)
+  const ringRef = useRef(null)
+  
   // Theme state switcher
   const [theme, setTheme] = useState(() => {
     const saved = localStorage.getItem('eozka_theme')
@@ -20,6 +24,28 @@ const App = () => {
     document.documentElement.setAttribute('data-theme', theme)
     localStorage.setItem('eozka_theme', theme)
   }, [theme])
+
+  // Custom Cursor Position Effect
+  useEffect(() => {
+    const moveCursor = (e) => {
+      const { clientX: x, clientY: y } = e
+      
+      if (dotRef.current) {
+        dotRef.current.style.left = `${x}px`
+        dotRef.current.style.top = `${y}px`
+      }
+      
+      if (ringRef.current) {
+        ringRef.current.style.left = `${x}px`
+        ringRef.current.style.top = `${y}px`
+      }
+    }
+
+    window.addEventListener('mousemove', moveCursor)
+    return () => {
+      window.removeEventListener('mousemove', moveCursor)
+    }
+  }, [])
 
   const toggleTheme = () => {
     setTheme(prev => prev === 'dark' ? 'light' : 'dark')
@@ -34,7 +60,6 @@ const App = () => {
     setToastMessage(msg)
     setTimeout(() => setToastMessage(''), 3000)
   }
-
 
   const renderContent = () => {
     switch (activeTab) {
@@ -61,6 +86,10 @@ const App = () => {
 
   return (
     <>
+      {/* Custom Cursor Structural Elements */}
+      <div ref={dotRef} className="custom-cursor-dot" />
+      <div ref={ringRef} className="custom-cursor-ring" />
+
       <Navbar activeTab={activeTab} setActiveTab={setActiveTab} theme={theme} toggleTheme={toggleTheme} />
 
       <main style={{ minHeight: '80vh' }}>
